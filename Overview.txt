@@ -304,7 +304,20 @@ Syncing Github with Git:
 
 "git push "name_you_choose" local_repository_branch_to_push" (for example "git push origin master")
 
+______________________
 
+Github: A new repository linked, an examples
+
+cd /Volumes/iTunes/Projects/Front-End\ Course/git/version-control/reflections *Go to folder to link*
+git init *Initialize that folder*
+git add Overview.txt *Stage the files*
+git add lesson_1_reflections.txt *Stage another file, could be done on one line*
+git commit *Commit those files in the staging area*
+remote add overview https://github.com/splarty/reflections.git *Stage the local repository on Github*
+git push -u overview master *Commit the local repository on Github*
+git add Overview.txt *After an edit, stage the file*
+git commit *Commit that file locally*
+git push -u overview master *Commit those changes on Github*
 
 
 
