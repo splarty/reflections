@@ -319,11 +319,24 @@ git add Overview.txt *After an edit, stage the file*
 git commit *Commit that file locally*
 git push -u overview master *Commit those changes on Github*
 
+_____________________
+Shortcut
 
+"git commit -a" Looks at your working directory, notices changes (modifications, removal of files, and performs necessary git add (or git rm) for you.
 
+_____________________
 
+Editing files on Github
 
+You can edit files, including creating files, directly on Github, or you can commit files from a different computer, or another person is working on the same files.
 
+You will have to "pull" these changes
+
+To create a new file on Github, just hit the "+" sign, name the file, write something, add committ message, then hit commit to master.
+
+"git pull overview master" i.e. with name of local repository and remote branch
+
+______________________
 
 
 
