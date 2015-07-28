@@ -103,7 +103,7 @@ _______________________
 
 Choosing which changes to commit: "Staging Area"
 
-The "staging area" allows you to specify which files to commit
+The "staging area" allows you to specify which files to commit (Note: "git add" and "git stage" are equivalent)
 
 "git add" filename(s) ... allows you to add files to the staging area
 
