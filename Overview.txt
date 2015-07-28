@@ -276,9 +276,33 @@ the merged version will combine branch1 as well as branch2 and branch3.
 "git branch -d coins" deletes the coins branch
 
 
+___________________
 
+Does it always makes sense to automatically merge files?
 
+No, you can manually look at the file, especially if there is a "conflict", i.e. two people change the same part of a file, and edit it (and select which parts
+to retain, and how to resolve the conflict).
 
+___________________
+
+Github
+
+Save your projects in a public repository. Open an account with Github. Set up Git to automatically remember account's passwords, with osxkeychain, and you are good to go.
+
+Git and Github have to be synced, they don't automatically communicate (as you don't want all commits to go public). (We already used Github to download a repository, with "git clone url")
+
+Syncing Github with Git: 
+1. Create an empty repository on Github
+2. Setup a "remote" on your hardrive. 
+3. You can "push" or "pull" data to/from Github (by specifying a branch, or a commit on that branch). If you push "master", for example, all of its commits are automatically sent.
+
+"git remote", lets you view and control "remotes" (just like "git branch" does on your hardrive).
+
+"git remote "name_you_choose" url_of_respository_you_wish_to_sync_to/with"
+
+"git remote -v" is git remove verbose, and shows more details
+
+"git push "name_you_choose" local_repository_branch_to_push" (for example "git push origin master")
 
 
 
