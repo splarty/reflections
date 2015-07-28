@@ -1,0 +1,300 @@
+Version Control
+________________
+
+File Differences:
+
+diff -u oldfile newfile 
+
+is the command in terminal to find differences in files
+
+________________________
+
+Installed Textwrangler command line tools. So now I have
+
+edit
+twdiff
+
+as commands that use textwrangler from the command line
+
+the default is VIM, which has the commands:
+
+Press 'i' to get into 'edit / insert' mode from 'view' mode
+Press ESC to get back to 'view' mode
+Write in view mode ':wq' to quit vim and save changes
+
+_________________________
+
+Dropbox and Googledocs save versions for 30 days!!
+
+_________________________
+
+Commits are saved versions, representing the project in one point in time, in GIT
+
+"git log" 
+
+command returns all of the commits relevant to a particular folder ("q" quits)
+
+It includes an ID, time, comments (related to the version)
+
+
+"git diff"
+
+ followed by the ID of two commits will give you the difference between the two commits (it is colorized)
+
+________________________
+
+Tracking across files - Repository
+
+Making a similar edit to different files. If you wish to revisit those changes, you need version control that will track that.
+This is where Git's repository comes in. A repository will save versions of every file that you specify
+
+Commits in this case is a snapshot of all of the files that you have decided to include in a repository.
+
+"git log --stat"
+
+where --stat gives data on changes: how many files in the repository were changed, how many insertions, how many deletions
+
+_______________________
+
+Git Cloning
+
+This is where you download all of the files of one repository. Usage:
+
+"git clone url"
+
+ex.: "git clone https://github.com/udacity/asteroids.git"
+
+______________________
+
+Restoring Previous Versions
+
+"git checkout" followed by git commit number
+
+"You are in 'detached HEAD' state" where "HEAD" is the latest commit (which you have "detached" by looking at a previous version).
+
+________________________
+
+Making TextWrangler the default git editor. First add the TextWrangler command line tools, which makes TextWrangler open on "edit". Then add this line:
+
+git config --global core.editor "edit -w"
+
+git-completion.bash in home directly for tab completion
+git-prompt.sh in home directory for prompt highlighting
+
+edit .bash_profile to ensure they load
+
+_____________________
+
+Lesson 2
+
+_____________________
+
+Repositories
+
+Repositories are just normal folders ... with metadata containing information about the history of the revisions ... commits. The metadata is in the folder, in a ".git" folder
+
+"git init" in the folder that you want the repository generates a repository, a ".git" folder for that folder. This does not create any commits, you have to do that.
+
+_______________________
+
+"git status" can be used to see which files have changed since the last commit
+"git reset" filename ... you can remove files from commit
+_______________________
+
+Choosing which changes to commit: "Staging Area"
+
+The "staging area" allows you to specify which files to commit
+
+"git add" filename(s) ... allows you to add files to the staging area
+
+________________________
+
+git commit
+
+allows you to commit files in your staging area, following which your text editor will open to allow you to add a commit message
+
+git commit -m "Commit message"
+
+allows you to commit files in your staging area, with a commit message. Here is a style guide for commit messages http://udacity.github.io/git-styleguide/
+
+__________________________
+
+If you change a file, you will see "modified" under "git status" if you did not commit that file
+
+you can use "git diff" to see the exact changes you have made to that file since the last commit ... in this case you just use "git diff" with no arguments
+
+"git add" filename
+
+will add that file to the staging area
+
+"git diff --staged"
+
+will show you the difference between the files that you have staged and those that have commits
+
+git reset --hard
+
+will reinstate the last commit .. discarding any changes to the working directory or staging area
+
+__________________________
+__________________________
+"git diff" compares working directory with staging area
+"git diff --staged" compares staging area with most recent commit
+"git diff id1 id2" compares the commits id1 and id2
+__________________________
+__________________________
+
+Branching
+
+Moving away from a linear history, for example an experimental feature that you want to work on for a while but want to save the state before you started experimenting
+
+"master" - main branch
+
+you can name your other branches, to remind you what they are. "experiment" for example
+
+When you are in a "detached Head", you are not at the head of a named branch. 
+
+Can you combine branches ... say if the experiment works out, can you make it your master? This is called "merging"
+
+
+"git branch"
+
+Shows which branch you are on
+
+"git branch 'argument'"
+
+Creates a branch with name 'argument'
+
+"git checkout 'argument'"
+
+Changes to the branch 'argument' ... as long as you have created the branch 'argument'
+
+Once you change the branch, you add the files to the staging area, then commit
+git add filename
+git commit
+
+
+_______________________
+
+Branches for collaboration
+
+Different branches are required if you and your collaborators are working on different features simultaneously.
+
+If you checkout someone else's branch, you may get this response
+"git checkout coins" - checking out the "coins" branch
+"Branch coins set up to track remote branch coins from origin." - response
+
+which means that the branch "coins" was not setup by me.
+
+_______________________
+
+So what happens when my branch contains changes that my collaborators does not?
+
+git log --graph --oneline master coins
+
+"--oneline" is to graph the changes on one line
+
+This command shows you the changes in the commits comparing "master" and "coins"
+
+Here is the output of that command:
+
+* 3884eab Add color
+* 3e42136 now using requestAnimationFrame
+* 4035769 frame interval was set wrong after game was paused
+* 25ede83 a couple missing ends with the ipad version
+* df03538 I can't spell 'screen' apparently :)
+| * 354dfdd Make ships able to spawn on coins
+| * 0c6daf1 Make it possible to collect coins
+| * a3c0ae4 Create helper functions
+| * 656b02e First pass at adding coins
+|/  
+* b0678b1 Revert controls
+
+the |/ signifes where the master branches off to coins, where | points to master and / points to coins.
+
+_____________________
+
+This leads to the idea of Reachability.
+
+If you move from the head of a branch, then create a commit, then move back to the head, the commit that you made is unreachable. 
+git tells you this when you move from the head, and asks you do you want to start a new branch.
+
+If you are not at the head of a branch, there is a shortcut to making a new branch and checking it out:
+
+git checkout -b new_branch_name
+
+this command combines "git branch new_branch_name" and "git checkout new_branch_name"
+
+________________________
+
+Combining Simple Branches
+
+If you have 3 branches "Coins", "Master", and "Easy-mode", each of which have commits following leaving the "Master" branch, how do you
+combine them without losing the information in each of the commits?
+
+Say two people are working on the same file: Jake and Rachel, they each have made commits:
+
+Jake     Rachel
+D         A
+B         B
+E         C
+          D
+
+are a list of the changes made, they could be adding lines (+) or subtracting lines (-), or just changing lines of code          
+          
+Which lines should be included? B, D are common to both, so they should be included. With line A, C and E, we don't know if one or other
+removed those lines (and so we don't want them included), or they added them (so we want them included), so we can't tell. We would need
+to look at the original file:
+
+Original File
+A
+B
+D
+
+So Jake removed A and added E
+Rachel left A and added C
+
+Git has the original file when the branches were made, so it can be used as the "original file" in the example above.
+
+When we merge, a new commit is made and we have access to all of the commits on the "coins" and "master" branches.
+__________________
+
+How to go about it.
+
+When we merge, typically, we would like the new combined file to be the tip, or head, of the "Master" branch (then we can safely delete the "coin" branch).
+After the merge, the commits, from each branch, will be available through the new "master" branch. They will be in time order, and so may be interleaved.
+
+"git merge" will also include the currently checked-out branch in the merged version. So if you have branch1 checked out, and you run 
+"git merge branch2 branch3"
+the merged version will combine branch1 as well as branch2 and branch3. 
+
+
+"git merge master coins"
+
+
+"git show commit_id" compares a commit to its parent (which is useful after a merge as two successive commits may not be parent child)
+
+"git branch -d coins" deletes the coins branch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
